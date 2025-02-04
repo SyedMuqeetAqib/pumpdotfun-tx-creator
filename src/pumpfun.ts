@@ -40,10 +40,6 @@ import {
   sendTx,
 } from "./util";
 import { PumpFun, IDL } from "./IDL";
-
-const fs = require("fs");
-const path = require("path");
-
 const PROGRAM_ID = "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P";
 const MPL_TOKEN_METADATA_PROGRAM_ID =
   "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s";
@@ -406,18 +402,8 @@ export class PumpFunSDK {
       throw new Error("File must be a Blob or File object");
     }
 
-    // Validate file
-    if (!(create.file instanceof Blob)) {
-      throw new Error("File must be a Blob or File object");
-    }
-
-    // Read the PNG file from the current folder
-    const filePath = path.resolve(__dirname, "image.png"); // Assuming 'image.png' is in the same folder
-    const fileBuffer = fs.readFileSync(filePath);
-    const fileBlob = new Blob([fileBuffer], { type: "image/png" });
-
     let formData = new FormData();
-    formData.append("file", fileBlob, "image.png"); // Add filename
+    formData.append("file", create.file, "image.png"); // Add filename
     formData.append("name", create.name);
     formData.append("symbol", create.symbol);
     formData.append("description", create.description);
