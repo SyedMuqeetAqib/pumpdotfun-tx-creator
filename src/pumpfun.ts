@@ -416,10 +416,10 @@ export class PumpFunSDK {
       const request = await fetch("https://pump.fun/api/ipfs", {
         method: "POST",
         headers: {
-          Accept: "application/json",
+          Accept: "*/*",
+          ContentType: "Multipart/form-data",
         },
         body: formData,
-        credentials: "same-origin",
       });
 
       if (request.status === 500) {
